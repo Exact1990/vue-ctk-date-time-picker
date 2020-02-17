@@ -22,7 +22,8 @@
       type="text"
       class="field-input"
       :class="{ 'no-clear-button': noClearButton }"
-      readonly
+      :readonly="!enabledManualInput"
+      @keydown="keyDownInput($event)"
       @focus="$emit('focus')"
       @blur="$emit('blur')"
       @click="$emit('click')"
@@ -72,7 +73,9 @@
       color: { type: String, default: null },
       dark: { type: Boolean, default: false },
       inputSize: { type: String, default: null },
-      noClearButton: { type: Boolean, default: false }
+      noClearButton: { type: Boolean, default: false },
+      noKeyboard: { type: Boolean, default: false },
+      enabledManualInput: { type: Boolean, default: false }
     },
     computed: {
       borderStyle () {
@@ -103,6 +106,13 @@
       focusInput () {
         this.$refs.CustomInput.focus()
         this.$emit('focus')
+      },
+
+      keyDownInput (event) {
+        if (this.noKeyboard && (event.keyCode == 13 || event.keyCode == 27)) {
+          this.$refs['CustomInput'].blur()
+          this.$emit('close')
+        }        
       }
     }
   }
