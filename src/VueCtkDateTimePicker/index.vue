@@ -20,9 +20,13 @@
       :label="label"
       :no-label="noLabel"
       :input-size="inputSize"
+      :enabled-manual-input="enabledManualInput"
+      :no-keyboard="noKeyboard"
       :no-clear-button="noClearButton"
       @focus="toggleDatePicker(true)"
+      @blur="keyboardChangeDatetime()"
       @clear="$emit('input', null)"
+      @close="closePicker"
     />
     <slot
       v-else
@@ -69,6 +73,7 @@
       :shortcut="shortcut"
       :custom-shortcuts="customShortcuts"
       :no-keyboard="noKeyboard"
+      :enabled-manual-input="enabledManualInput"
       :right="right"
       :behaviour="_behaviour"
       @validate="validate"
@@ -239,6 +244,15 @@
       }
     },
     methods: {
+      keyboardChangeDatetime () {
+        if (this.enabledManualInput) {
+          const inputValue = this.$refs['custom-input'].$refs['CustomInput'].value
+          const momentDate = moment(inputValue, this.formatted)
+          if (momentDate.isValid()) {
+            this.$emit('input', momentDate.format(this.format))
+          }
+        }
+      },
       setValueToCustomElem () {
         /**
          * TODO: Find a way (perhaps), to bind default attrs to custom element.

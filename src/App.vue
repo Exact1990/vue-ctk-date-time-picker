@@ -217,6 +217,7 @@
                 :custom-shortcuts="demo.options.customShortcuts"
                 :persistent="demo.options.persistent"
                 :no-keyboard="demo.options.noKeyboard"
+                :enabled-manual-input="demo.options.enabledManualInput"
                 :no-value-to-custom-elem="demo.options.noValueToCustomElem"
                 :disabled-weekly="demo.options.disabledWeekly"
                 :right="demo.options.right"
@@ -256,7 +257,7 @@
         booleanOptions: [
           'noHeader', 'autoClose', 'error', 'dark', 'overlay', 'noWeekendDays', 'noShortcuts',
           'noButton', 'onlyDate', 'range', 'onlyTime', 'inline', 'persistent', 'disabled', 'noButtonNow', 'noValueToCustomElem',
-          'noKeyboard', 'right', 'noClearButton', 'noLabel'
+          'noKeyboard', 'right', 'noClearButton', 'noLabel', 'enabledManualInput'
         ],
         stringOptions: [
           'id', 'label', 'hint', 'color', 'buttonColor', 'position', 'format', 'formatted', 'outputFormat',
